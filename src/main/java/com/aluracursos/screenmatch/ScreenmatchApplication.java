@@ -1,6 +1,6 @@
 package com.aluracursos.screenmatch;
 
-import com.aluracursos.screenmatch.main.Princial;
+import com.aluracursos.screenmatch.principal.Principal;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,8 +16,8 @@ public class ScreenmatchApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Princial princial = new Princial();
-		princial.muestraMenu();
+		Principal principal = new Principal();
+		principal.muestraMenu();
 
 	}
 }

@@ -1,4 +1,4 @@
-package com.aluracursos.screenmatch.main;
+package com.aluracursos.screenmatch.principal;
 
 import com.aluracursos.screenmatch.model.DatosEpisodio;
 import com.aluracursos.screenmatch.model.DatosSerie;
@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class Princial {
+public class Principal {
 
     private Scanner teclado = new Scanner(System.in);
     private ConsumoApi consumoApi = new ConsumoApi();
