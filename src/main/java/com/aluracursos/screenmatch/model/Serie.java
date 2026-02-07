@@ -1,8 +1,17 @@
 package com.aluracursos.screenmatch.model;
 
 import com.aluracursos.screenmatch.service.ConsultaMyMemory;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
+import java.util.List;
 import java.util.OptionalDouble;
 
 @Entity
@@ -12,15 +21,22 @@ public class Serie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(unique = true)
     private String titulo;
+
     private Integer totalDeTemporadas;
     private Double evaluacion;
     private String poster;
+
     @Enumerated(EnumType.STRING)
     private Categoria genero;
+
     private String actores;
     private String sinopsis;
+
+    @Transient
+    private List<Episodio> listaEpisodios;
 
     public Serie(DatosSerie datosSerie) {
         this.titulo = datosSerie.titulo();
