@@ -1,15 +1,7 @@
 package com.aluracursos.screenmatch.model;
 
 import com.aluracursos.screenmatch.service.ConsultaMyMemory;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.OptionalDouble;
@@ -35,7 +27,7 @@ public class Serie {
     private String actores;
     private String sinopsis;
 
-    @Transient
+    @OneToMany(mappedBy = "serie")
     private List<Episodio> listaEpisodios;
 
     public Serie() {}
