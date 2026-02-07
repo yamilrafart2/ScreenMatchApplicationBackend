@@ -109,7 +109,6 @@ public class Principal {
     private void buscarSerieWeb() {
 
         DatosSerie datos = getDatosSerie();
-        //datosSeries.add(datos);
         Serie serie = new Serie(datos);
         repositorio.save(serie);
         System.out.println(datos);
@@ -118,11 +117,7 @@ public class Principal {
 
     private void mostrarSeriesBuscadas() {
 
-        List<Serie> listaSeries = new ArrayList<>();
-        listaSeries = datosSeries.stream()
-                .map(s -> new Serie(s))
-                .collect(Collectors.toList())
-        ;
+        List<Serie> listaSeries = repositorio.findAll();
 
         listaSeries.stream()
                 .sorted(Comparator.comparing(Serie::getGenero))

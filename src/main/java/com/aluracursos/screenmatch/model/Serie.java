@@ -38,6 +38,8 @@ public class Serie {
     @Transient
     private List<Episodio> listaEpisodios;
 
+    public Serie() {}
+
     public Serie(DatosSerie datosSerie) {
         this.titulo = datosSerie.titulo();
         this.totalDeTemporadas = datosSerie.totalDeTemporadas();
