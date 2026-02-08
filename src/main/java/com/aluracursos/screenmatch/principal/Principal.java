@@ -34,6 +34,7 @@ public class Principal {
                     4 - Buscar series por título
                     5 - Top 5 mejores series
                     6 - Buscar series por categoría
+                    7 - Filtrar series por temporadas y evaluación
                     
                     0 - Salir
                     """
@@ -79,6 +80,12 @@ public class Principal {
                     System.out.println("==============================================");
                     System.out.println("\n====================== 6. ====================");
                     buscarSeriesPorCategoria();
+                    System.out.println("==============================================");
+                    break;
+                case 7:
+                    System.out.println("==============================================");
+                    System.out.println("\n====================== 7. ====================");
+                    filtrarSeriesPorTemporadasYEvaluacion();
                     System.out.println("==============================================");
                     break;
                 case 0:
@@ -198,6 +205,28 @@ public class Principal {
         List<Serie> seriesBuscadas = repositorio.findByGenero(generoEspanol);
         System.out.println("Las series de la categoría " + generoEspanol + " son: ");
         seriesBuscadas.forEach(System.out::println);
+
+    }
+
+    private void filtrarSeriesPorTemporadasYEvaluacion() {
+
+        System.out.print("Por favor escriba el número máximo de temporadas por el cual desea filtrar: ");
+        var maxTemporadas = teclado.nextInt();
+        teclado.nextLine();
+
+        System.out.print("Por favor escriba el número mínimo de evaluación por el cual desea filtrar: ");
+        var minEvaluacion = teclado.nextDouble();
+        teclado.nextLine();
+
+        List<Serie> seriesEncontradas = repositorio.findByTotalDeTemporadasLessThanEqualAndEvaluacionGreaterThanEqual(maxTemporadas, minEvaluacion);
+
+        if (!seriesEncontradas.isEmpty()) {
+            System.out.println("Series filtradas!");
+            System.out.println("Las series encontradas con un máximo de temporadas de " + maxTemporadas + " y con un mínimo de evaluación de " + minEvaluacion + " son: ");
+            seriesEncontradas.forEach(s -> System.out.println("Serie: " + s.getTitulo() + " - Total de temporadas: " + s.getTotalDeTemporadas() + " - Evaluación: " + s.getEvaluacion()));
+        } else {
+            System.out.println("Series NO encontradas con esos filtros!");
+        }
 
     }
 
