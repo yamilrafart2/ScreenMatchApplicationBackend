@@ -55,6 +55,14 @@ public class Serie {
         ;
     }
 
+    public List<Episodio> getListaEpisodios() {
+        return listaEpisodios;
+    }
+
+    public void setListaEpisodios(List<Episodio> listaEpisodios) {
+        this.listaEpisodios = listaEpisodios;
+    }
+
     public Long getId() {
         return id;
     }
