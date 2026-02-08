@@ -35,6 +35,7 @@ public class Principal {
                     2 - Buscar episodios
                     3 - Mostrar series buscadas
                     4 - Buscar series por título
+                    5 - Top 5 mejores series
                     
                     0 - Salir
                     """
@@ -68,6 +69,12 @@ public class Principal {
                     System.out.println("==============================================");
                     System.out.println("\n====================== 4. ====================");
                     buscarSeriesPorTitulo();
+                    System.out.println("==============================================");
+                    break;
+                case 5:
+                    System.out.println("==============================================");
+                    System.out.println("\n====================== 5. ====================");
+                    buscarTop5Series();
                     System.out.println("==============================================");
                     break;
                 case 0:
@@ -168,6 +175,13 @@ public class Principal {
         } else {
             System.out.println("Serie NO encontrada!");
         }
+
+    }
+
+    private void buscarTop5Series() {
+
+        List<Serie> topSeries = repositorio.findTop5ByOrderByEvaluacionDesc();
+        topSeries.forEach(s -> System.out.println("Serie: " + s.getTitulo() + " - Evaluación: " + s.getEvaluacion()));
 
     }
 
