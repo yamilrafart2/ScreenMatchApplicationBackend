@@ -130,7 +130,7 @@ public class Principal {
             var serieEncontrada = serie.get();
             List<DatosTemporada> temporadas = new ArrayList<>();
 
-            for (int i = 1; i <= serieEncontrada.getTotalDeTemporadas(); i++) {
+            for (int i = 1; i <= serieEncontrada.getTotalTemporadas(); i++) {
                 var json = consumoApi.obtenerDatos(URL_BASE + serieEncontrada.getTitulo().replace(" ", "+") + "&Season=" + i + API_KEY);
                 DatosTemporada datosTemporada = conversor.obtenerDatos(json, DatosTemporada.class);
                 temporadas.add(datosTemporada);
@@ -218,12 +218,12 @@ public class Principal {
         var minEvaluacion = teclado.nextDouble();
         teclado.nextLine();
 
-        List<Serie> seriesEncontradas = repositorio.findByTotalDeTemporadasLessThanEqualAndEvaluacionGreaterThanEqual(maxTemporadas, minEvaluacion);
+        List<Serie> seriesEncontradas = repositorio.findByTotalTemporadasLessThanEqualAndEvaluacionGreaterThanEqual(maxTemporadas, minEvaluacion);
 
         if (!seriesEncontradas.isEmpty()) {
             System.out.println("Series filtradas!");
             System.out.println("Las series encontradas con un máximo de temporadas de " + maxTemporadas + " y con un mínimo de evaluación de " + minEvaluacion + " son: ");
-            seriesEncontradas.forEach(s -> System.out.println("Serie: " + s.getTitulo() + " - Total de temporadas: " + s.getTotalDeTemporadas() + " - Evaluación: " + s.getEvaluacion()));
+            seriesEncontradas.forEach(s -> System.out.println("Serie: " + s.getTitulo() + " - Total de temporadas: " + s.getTotalTemporadas() + " - Evaluación: " + s.getEvaluacion()));
         } else {
             System.out.println("Series NO encontradas con esos filtros!");
         }

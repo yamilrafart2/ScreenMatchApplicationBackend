@@ -27,7 +27,7 @@ public class Serie {
     @Column(unique = true)
     private String titulo;
 
-    private Integer totalDeTemporadas;
+    private Integer totalTemporadas;
     private Double evaluacion;
     private String poster;
 
@@ -44,7 +44,7 @@ public class Serie {
 
     public Serie(DatosSerie datosSerie) {
         this.titulo = datosSerie.titulo();
-        this.totalDeTemporadas = datosSerie.totalDeTemporadas();
+        this.totalTemporadas = datosSerie.totalTemporadas();
         this.evaluacion = OptionalDouble.of(Double.valueOf(datosSerie.evaluacion())).orElse(0.0);
         this.poster = datosSerie.poster();
         this.genero = Categoria.fromString(datosSerie.genero().split(",")[0].trim());
@@ -57,7 +57,7 @@ public class Serie {
         return
                 "titulo='" + titulo + '\'' +
                 ", genero=" + genero +
-                ", totalDeTemporadas=" + totalDeTemporadas +
+                ", totalTemporadas=" + totalTemporadas +
                 ", evaluacion=" + evaluacion +
                 ", poster='" + poster + '\'' +
                 ", actores='" + actores + '\'' +
@@ -91,12 +91,12 @@ public class Serie {
         this.titulo = titulo;
     }
 
-    public Integer getTotalDeTemporadas() {
-        return totalDeTemporadas;
+    public Integer getTotalTemporadas() {
+        return totalTemporadas;
     }
 
-    public void setTotalDeTemporadas(Integer totalDeTemporadas) {
-        this.totalDeTemporadas = totalDeTemporadas;
+    public void setTotalTemporadas(Integer totalTemporadas) {
+        this.totalTemporadas = totalTemporadas;
     }
 
     public Double getEvaluacion() {
