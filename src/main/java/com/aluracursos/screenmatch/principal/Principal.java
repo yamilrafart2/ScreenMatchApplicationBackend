@@ -35,6 +35,7 @@ public class Principal {
                     5 - Top 5 mejores series
                     6 - Buscar series por categoría
                     7 - Filtrar series por temporadas y evaluación
+                    8 - Buscar episodios por título
                     
                     0 - Salir
                     """
@@ -86,6 +87,12 @@ public class Principal {
                     System.out.println("==============================================");
                     System.out.println("\n====================== 7. ====================");
                     filtrarSeriesPorTemporadasYEvaluacion();
+                    System.out.println("==============================================");
+                    break;
+                case 8:
+                    System.out.println("==============================================");
+                    System.out.println("\n====================== 8. ====================");
+                    buscarEpisodiosPorTitulo();
                     System.out.println("==============================================");
                     break;
                 case 0:
@@ -226,6 +233,24 @@ public class Principal {
             seriesEncontradas.forEach(s -> System.out.println("Serie: " + s.getTitulo() + " - Total de temporadas: " + s.getTotalTemporadas() + " - Evaluación: " + s.getEvaluacion()));
         } else {
             System.out.println("Series NO encontradas con esos filtros!");
+        }
+
+    }
+
+    private void buscarEpisodiosPorTitulo() {
+
+        System.out.print("Por favor escriba el nombre del episodio que desea buscar: ");
+        var nombreEpisodio = teclado.nextLine();
+
+        List<Episodio> episodiosEncontrados = repositorio.getEpisodiosPorNombre(nombreEpisodio);
+
+        if (!episodiosEncontrados.isEmpty()) {
+            System.out.println("Episodios encontrados!");
+            episodiosEncontrados.forEach(e ->
+                    System.out.printf("Serie: %s - Temporada: %s - Número episodio: %s - Episodio: %s - Evaluación: %s\n",
+                            e.getSerie().getTitulo(), e.getTemporada(), e.getNumeroEpisodio(), e.getTitulo(), e.getEvaluacion()));
+        } else {
+            System.out.println("No se encontraron episodios con ese titulo!");
         }
 
     }
