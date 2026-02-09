@@ -218,7 +218,7 @@ public class Principal {
         var minEvaluacion = teclado.nextDouble();
         teclado.nextLine();
 
-        List<Serie> seriesEncontradas = repositorio.findByTotalTemporadasLessThanEqualAndEvaluacionGreaterThanEqual(maxTemporadas, minEvaluacion);
+        List<Serie> seriesEncontradas = repositorio.getSeriesFiltradasPorTemporadasYEvaluacion(maxTemporadas, minEvaluacion);
 
         if (!seriesEncontradas.isEmpty()) {
             System.out.println("Series filtradas!");
