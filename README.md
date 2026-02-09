@@ -165,27 +165,45 @@ classDiagram
     Serie "1" *-- "N" Episodio : Contiene
 ```
 
-### 3. Diagrama de Secuencia: Búsqueda de Episodios (Opción 8)
-Flujo de ejecución cuando el usuario busca un episodio específico por nombre.
+### 3. Diagrama de Secuencia: Flujo Completo (Opción 1 - Buscar y Guardar)
+Este diagrama detalla el proceso completo: desde que el usuario solicita una serie, el sistema la busca en OMDb, convierte el JSON a objetos Java y finalmente la persiste en PostgreSQL.
 
 ```mermaid
 sequenceDiagram
-    actor Usuario
-    participant Menu as Principal
+    autonumber
+    actor User as Usuario
+    participant Main as Principal
+    participant Api as ConsumoApi
+    participant OMDb as OMDb API
+    participant Json as ConvierteDatos
     participant DB as SerieRepository
-    participant SQL as PostgreSQL
 
-    Usuario->>Menu: Opción 8 (Buscar Episodios)
-    Menu->>Usuario: "¿Nombre del episodio?"
-    Usuario->>Menu: Input: "Raid"
-    Menu->>DB: getEpisodiosPorNombre("Raid")
-    Note right of DB: Ejecuta JPQL con ILIKE %Raid%
-    DB->>SQL: SELECT ... FROM episodios WHERE titulo ILIKE ...
-    SQL-->>DB: Retorna List<Episodio>
-    DB-->>Menu: Lista de Episodios encontrados
-    loop Mostrar Resultados
-        Menu->>Usuario: Imprime detalles (Serie, Temp, Nro, Eval)
+    User->>Main: Selecciona Opción 1
+    Main->>User: "¿Nombre de la serie?"
+    User->>Main: Input: "Matrix"
+
+    rect rgb(200, 225, 255)
+    Note right of Main: 1. Consumo de API
+    Main->>Api: obtenerDatos("...&t=Matrix...")
+    Api->>OMDb: HTTPS GET Request
+    OMDb-->>Api: JSON Response {"Title":"Matrix"...}
+    Api-->>Main: Retorna String (json)
     end
+
+    rect rgb(255, 250, 220)
+    Note right of Main: 2. Conversión (DTO)
+    Main->>Json: obtenerDatos(json, DatosSerie.class)
+    Json-->>Main: Retorna Record DatosSerie
+    end
+
+    rect rgb(220, 255, 220)
+    Note right of Main: 3. Persistencia (JPA)
+    Main->>Main: new Serie(datosSerie)
+    Main->>DB: save(serie)
+    DB-->>Main: Confirmación (Entity Saved)
+    end
+
+    Main-->>User: Muestra datos en consola
 ```
 
 ---
