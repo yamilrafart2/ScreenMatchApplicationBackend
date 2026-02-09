@@ -36,6 +36,7 @@ public class Principal {
                     6 - Buscar series por categoría
                     7 - Filtrar series por temporadas y evaluación
                     8 - Buscar episodios por título
+                    9 - Top 5 episodios por serie
                     
                     0 - Salir
                     """
@@ -93,6 +94,12 @@ public class Principal {
                     System.out.println("==============================================");
                     System.out.println("\n====================== 8. ====================");
                     buscarEpisodiosPorTitulo();
+                    System.out.println("==============================================");
+                    break;
+                case 9:
+                    System.out.println("==============================================");
+                    System.out.println("\n====================== 9. ====================");
+                    buscarTop5Episodios();
                     System.out.println("==============================================");
                     break;
                 case 0:
@@ -251,6 +258,30 @@ public class Principal {
                             e.getSerie().getTitulo(), e.getTemporada(), e.getNumeroEpisodio(), e.getTitulo(), e.getEvaluacion()));
         } else {
             System.out.println("No se encontraron episodios con ese titulo!");
+        }
+
+    }
+
+    private void buscarTop5Episodios() {
+
+        System.out.print("Por favor escriba el nombre de la serie de la cual quiere ver el TOP 5 de episodios: ");
+        var nombreSerie = teclado.nextLine();
+
+        Optional<Serie> serieBuscada = repositorio.findByTituloContainsIgnoreCase(nombreSerie);
+
+        if (serieBuscada.isPresent()) {
+            System.out.println("Serie encontrada!");
+            List<Episodio> topEpisodios = repositorio.getTop5Episodios(serieBuscada.get());
+            if (!topEpisodios.isEmpty()) {
+                System.out.println("El TOP 5 episodios de " + serieBuscada.get().getTitulo() + " es:");
+                topEpisodios.forEach(e ->
+                        System.out.printf("Temporada: %s - Número episodio: %s - Episodio: %s - Evaluación: %s\n",
+                                e.getTemporada(), e.getNumeroEpisodio(), e.getTitulo(), e.getEvaluacion()));
+            } else {
+                System.out.println("La serie NO posee episodios asociados!");
+            }
+        } else {
+            System.out.println("Serie NO encontrada!");
         }
 
     }
