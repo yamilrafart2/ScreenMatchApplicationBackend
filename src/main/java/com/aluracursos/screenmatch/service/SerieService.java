@@ -13,14 +13,18 @@ import java.util.stream.Collectors;
 public class SerieService {
 
     @Autowired
-    private SerieRepository serieRepository;
+    private SerieRepository repositorio;
 
     public List<SerieDTO> obtenerTodasLasSeries() {
-        return convierteDatos(serieRepository.findAll());
+        return convierteDatos(repositorio.findAll());
     }
 
     public List<SerieDTO> obtenerTop5() {
-        return convierteDatos(serieRepository.findTop5ByOrderByEvaluacionDesc());
+        return convierteDatos(repositorio.findTop5ByOrderByEvaluacionDesc());
+    }
+
+    public List<SerieDTO> obtenerLanzamientosMasRecientes() {
+        return convierteDatos(repositorio.getLanzamientosMasRecientes());
     }
 
     public List<SerieDTO> convierteDatos(List<Serie> listaSeries) {
